@@ -1,0 +1,17 @@
+{
+  "name": "bootcamp-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcafe chrome ./automation/tests",
+    "test-smoke": "testcafe chrome ./automation/tests --test-meta type=smoke",
+    "test-login": "testcafe chrome ./automation/tests --test-meta feature=login",
+    "test-today": "testcafe chrome ./automation/tests --test-meta feature=today"
+  },
+  "author": "Eric Briseno",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
