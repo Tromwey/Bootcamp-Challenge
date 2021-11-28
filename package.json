@@ -1,19 +1,17 @@
 {
-  "name": "wizeline-bootcamp",
+  "name": "bootcamp-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "testcafe chrome ./project/tests"
+    "test": "testcafe chrome ./automation/tests",
+    "test-smoke": "testcafe chrome ./automation/tests --test-meta type=smoke",
+    "test-login": "testcafe chrome ./automation/tests --test-meta feature=login",
+    "test-today": "testcafe chrome ./automation/tests --test-meta feature=today"
   },
   "author": "Eric Briseno",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "eslint-plugin-testcafe": "^0.2.1",
-    "testcafe": "^1.17.1"
-  },
-  "devDependencies": {
-    "eslint": "^8.3.0"
+    "dotenv": "^10.0.0"
   }
 }
