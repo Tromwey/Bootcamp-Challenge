@@ -3,36 +3,76 @@ import { PARAMETERS, TASK } from "../data/constants"
 
 class TodayPage {
     constructor(){
-        this.todayPageTitle = Selector('.simple_content').withText('Hoy')
+        this.todayPageTitle = Selector('.top_bar_btn')
         this.createTaskButton = Selector('.plus_add_button')
         
 
         this.taskName = Selector('div.DraftEditor-editorContainer > div')
         this.taskDescription = Selector('.task_editor__description_field')
+        this.taskDueDateButton = Selector('.item_due_selector')
+        this.dueDateTomorrowButton = Selector('.scheduler-suggestions-item-icon--tomorrow')
         this.confirmTaskButton = Selector('.reactist_button')
+
+        this.firstItem = Selector('.task_list_item')
+        this.moreOptionsButton = Selector('.more_actions_button')
+        this.deleteTaskButton = Selector('.popper>ul>li').nth(11)
+        this.confirmDeleteButton = Selector('button[type="submit"]')
+
+        this.userButton = Selector('.user_avatar')
+        this.logOutButton = Selector('.user_menu>button').nth(1)
 
         this.taskItem = Selector('.data-selection-id')
     }
 
-
-    async createTask(name = TASK.DEFAULT_NAME){
+    async createTasks(numberOfTasks = TASK.SINGLE_TASK, due = TASK.TODAY, name = TASK.DEFAULT_NAME){
         await t
-            .typeText(this.taskName, name, {paste: true})
-            .click(this.confirmTaskButton)
-    }
+            .click(this.createTaskButton)
 
-    async createOneTask(){
-        await t.click(this.createTaskButton)
-        await this.createTask()
-        await t.wait(TASK.RESPONSE_TIME)
-    }
-
-    async createManyTasks(numberOfTasks){
-        await t.click(this.createTaskButton)
         for(let i = 0; i < numberOfTasks; i++){
-            await this.createTask(TASK.DEFAULT_NAME + i)
+            await t.typeText(this.taskName, name + i, {paste: true})
+            if (due == TASK.TOMORROW){
+                await t
+                    .click(this.taskDueDateButton)
+                    .click(this.dueDateTomorrowButton)
+            }
+            await t.click(this.confirmTaskButton)
         }
         await t.wait(TASK.RESPONSE_TIME)
+    }
+
+    async createSingleTask(){
+        await this.createTasks()
+    }
+
+    async createManyTasks(){
+        await this.createTasks(TASK.MANY_TASKS)
+    }
+
+    async createTaskDueTomorrow(){
+        await this.createTasks(TASK.SINGLE_TASK,TASK.TOMORROW)
+    }
+
+    async deleteTaskByRigthClick(){
+        await t
+            .rightClick(this.firstItem)
+            .click(this.deleteTaskButton)
+            .click(this.confirmDeleteButton)
+            .wait(TASK.RESPONSE_TIME)
+    }
+    
+    async deleteTaskByMoreOptionsMenu(){
+        await t
+            .hover(this.firstItem)
+            .click(this.moreOptionsButton)
+            .click(this.deleteTaskButton)
+            .click(this.confirmDeleteButton)
+            .wait(TASK.RESPONSE_TIME)
+    }
+
+    async logOut(){
+        await t
+            .click(this.userButton)
+            .click(this.logOutButton)
     }
 
     async taskCounter(){
