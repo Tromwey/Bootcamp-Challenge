@@ -22,7 +22,10 @@ export const TASK= {
     RESPONSE_TIME: 900,
     DEFAULT_NAME: 'defaultName',
     DEFAULT_DESCRIPTION: 'defaultDescription',
-    NUMBER_OF_TASKS: 10
+    TODAY: 0,
+    TOMORROW: 1,
+    SINGLE_TASK: 1,
+    MANY_TASKS: 10
     
 }
 
