@@ -1,5 +1,7 @@
 import { Selector, t } from "testcafe"
-import { PARAMETERS, TASK } from "../data/constants"
+import { URLS, CREDENTIALS, TASK } from "../data/constants"
+import { STANDARD_USER } from "../data/roles"
+import loginPage from "../pages/login-page"
 
 class TodayPage {
     constructor(){
@@ -73,6 +75,21 @@ class TodayPage {
         await t
             .click(this.userButton)
             .click(this.logOutButton)
+    }
+
+    async reloadSessionByLoginOut(){
+        await this.logOut()
+        await t.useRole(STANDARD_USER)
+    }
+
+    async reloadSessionByLoginOut2(){
+        await this.logOut()
+        await t.navigateTo(URLS.BASE_URL)
+        await loginPage.submitLoginForm(CREDENTIALS.STANDARD_USER.EMAIL,CREDENTIALS.STANDARD_USER.PASSWORD)
+    }
+
+    async reloadSessionByNavigatingToToday(){
+        await t.navigateTo(URLS.TODAY_URL)
     }
 
     async taskCounter(){

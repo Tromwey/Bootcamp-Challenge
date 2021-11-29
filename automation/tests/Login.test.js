@@ -5,6 +5,9 @@ import loginPage from "../pages/login-page"
 
 fixture ('Login feature test')
     .page `${URLS.BASE_URL}`
+    //.beforeEach( async t => {
+    //    await t.useRole(STANDARD_USER)
+    //})
 
 test.meta({ feature: 'login', type: 'smoke'})('As a user, I should be able to log in succesfully by providing valid credentials', async t => {
     await t
@@ -31,20 +34,20 @@ test.meta({ feature: 'login' })('As a user, I should not be able to log in by pr
 
 //Validates simply the login was not done
 
-test.meta({ feature: 'login' })('As a user, I should not be able to log in by not providing an email', async t => {
-    loginPage.submitLoginFormEmptyEmail()
-    await t.expect(todayPage.todayPageTitle.exists).notOk()
-})
-
-test.meta({ feature: 'login' })('As a user, I should not be able to log in by not providing a password', async t => {
-    loginPage.submitLoginFormEmptyPassword()
-    await t.expect(todayPage.todayPageTitle.exists).notOk()
-})
-
-test.meta({ feature: 'login' })('As a user, I should not be able to log in by providing invalid credentials', async t => {
-    loginPage.submitLoginFormInvalidCredentials()
-    await t.expect(todayPage.todayPageTitle.exists).notOk()
-})
+//test.meta({ feature: 'login' })('As a user, I should not be able to log in by not providing an email', async t => {
+//    loginPage.submitLoginFormEmptyEmail()
+//    await t.expect(todayPage.todayPageTitle.exists).notOk()
+//})
+//
+//test.meta({ feature: 'login' })('As a user, I should not be able to log in by not providing a password', async t => {
+//    loginPage.submitLoginFormEmptyPassword()
+//    await t.expect(todayPage.todayPageTitle.exists).notOk()
+//})
+//
+//test.meta({ feature: 'login' })('As a user, I should not be able to log in by providing invalid credentials', async t => {
+//    loginPage.submitLoginFormInvalidCredentials()
+//    await t.expect(todayPage.todayPageTitle.exists).notOk()
+//})
 
 
 
