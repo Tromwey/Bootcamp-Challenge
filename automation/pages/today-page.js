@@ -27,6 +27,8 @@ class TodayPage {
         }
         await t.wait(TASK.RESPONSE_TIME)
     }
+
+
 }
 
 export default new TodayPage

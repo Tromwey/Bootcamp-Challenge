@@ -37,7 +37,7 @@ BASE_URL=website_url/
 * eslint
 * eslint-plugin-cafe
 
-## Scrips
+## Scripts
 
 * `test-smoke` Runs all the highly important tests
 * `test-login` Runs all the tests for the LoginPage fixture
