@@ -13,7 +13,8 @@ export const CREDENTIALS = {
 
     INVALID_USER:{
         EMAIL: 'invalid_email@gmail.com',
-        PASSWORD: 'invalid_password'
+        PASSWORD: 'invalid_password',
+        EMPTY: ''
     }
 }
 
@@ -29,11 +30,16 @@ export const TASK= {
 }
 
 export const MESSAGE_ERRORS = {
-    INVALID_MESSAGE_EN: 'Invalid email address.',
+    
+    INVALID_EMAIL: 1,
+    INVALID_EMAIL_EN: 'Invalid email address.',
+    INVALID_EMAIL_ES:  'Dirección de email no válida.',
+    
+    INVALID_PASSWORD: 2,
     INVALID_PASSWORD_EN: 'Blank password.',
-    INVALID_CREDENTIALS_EN: 'Email or password incorrect',
-
-    INVALID_MESSAGE_ES:  'Dirección de email no válida.',
     INVALID_PASSWORD_ES: 'Contraseña en blanco.',
+
+    INVALID_CREDENTIALS: 3,
+    INVALID_CREDENTIALS_EN: 'Email or password incorrect',
     INVALID_CREDENTIALS_ES: 'Email o contraseña incorrectos'
 }

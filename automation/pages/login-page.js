@@ -1,41 +1,49 @@
 import { Selector, t } from "testcafe"
-import { CREDENTIALS } from "../data/constants"
+import { CREDENTIALS, MESSAGE_ERRORS } from "../data/constants"
 
 class LoginPage {
     constructor(){
         this.emailInput = Selector('#email')
         this.passwordInput = Selector('#password')
         this.loginButton = Selector('.submit_btn').withText('Inicia sesión')
-
-        this.invalidEmailMessage = Selector('.error_msg').withText('Dirección de email no válida.')
-        this.invalidPasswordMessage = Selector('.error_msg').withText('Contraseña en blanco.')
-        this.invalidCredentialsMessage = Selector('.error_msg').withText('Email o contraseña incorrectos')
+        this.invalidCredentialsMessage = Selector('.error_msg')
     }
 
     async submitLoginForm(email, password){
-        await t 
-            .typeText(this.emailInput, email)
-            .typeText(this.passwordInput, password)
-            .click(this.loginButton)
+
+        if(email != CREDENTIALS.INVALID_USER.EMPTY){
+            await t.typeText(this.emailInput, email)
+        }
+        
+        if(password != CREDENTIALS.INVALID_USER.EMPTY){
+            await t.typeText(this.passwordInput, password)
+        }
+
+        await t.click(this.loginButton)
     }
 
-    async submitLoginFormEmptyEmail(){
-        await t 
-            .typeText(this.passwordInput, CREDENTIALS.STANDARD_USER.PASSWORD)
-            .click(this.loginButton)
-    }
+    async assertInvalidLogin(messageError){
+        switch (messageError) {
+            case MESSAGE_ERRORS.INVALID_EMAIL:
+                await t.expect(await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_EMAIL_EN).exists || 
+                               await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_EMAIL_ES).exists).ok()
+                
+                break;
 
-    async submitLoginFormEmptyPassword(){
-        await t 
-            .typeText(this.emailInput, CREDENTIALS.STANDARD_USER.EMAIL)
-            .click(this.loginButton)
-    }
+            case MESSAGE_ERRORS.INVALID_PASSWORD:
+                await t.expect(await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_PASSWORD_EN).exists || 
+                               await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_PASSWORD_ES).exists).ok()
+                break;
 
-    async submitLoginFormInvalidCredentials(){
-        await t 
-            .typeText(this.emailInput, CREDENTIALS.INVALID_USER.EMAIL)
-            .typeText(this.passwordInput, CREDENTIALS.INVALID_USER.PASSWORD)
-            .click(this.loginButton)
+            case MESSAGE_ERRORS.INVALID_CREDENTIALS:
+                await t.expect(await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_CREDENTIALS_EN).exists || 
+                               await this.invalidCredentialsMessage.withText(MESSAGE_ERRORS.INVALID_CREDENTIALS_ES).exists).ok()
+                break;
+        
+            default:
+                break;
+        }
+
     }
 }
 
