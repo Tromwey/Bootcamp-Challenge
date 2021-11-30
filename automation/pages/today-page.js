@@ -15,10 +15,12 @@ class TodayPage {
         this.dueDateTomorrowButton = Selector('.scheduler-suggestions-item-icon--tomorrow')
         this.confirmTaskButton = Selector('.reactist_button')
 
-        this.firstItem = Selector('.task_list_item')
+        this.item = Selector('.task_list_item')
         this.moreOptionsButton = Selector('.more_actions_button')
         this.deleteTaskButton = Selector('.popper>ul>li').nth(11)
         this.confirmDeleteButton = Selector('button[type="submit"]')
+
+        this.nextTasks = Selector('#list_holder>ul>li').nth(2)
 
         this.userButton = Selector('.user_avatar')
         this.logOutButton = Selector('.user_menu>button').nth(1)
@@ -56,7 +58,7 @@ class TodayPage {
 
     async deleteTaskByRigthClick(){
         await t
-            .rightClick(this.firstItem)
+            .rightClick(this.item)
             .click(this.deleteTaskButton)
             .click(this.confirmDeleteButton)
             .wait(TASK.RESPONSE_TIME)
@@ -64,7 +66,7 @@ class TodayPage {
     
     async deleteTaskByMoreOptionsMenu(){
         await t
-            .hover(this.firstItem)
+            .hover(this.item)
             .click(this.moreOptionsButton)
             .click(this.deleteTaskButton)
             .click(this.confirmDeleteButton)
@@ -88,18 +90,26 @@ class TodayPage {
         await loginPage.submitLoginForm(CREDENTIALS.STANDARD_USER.EMAIL,CREDENTIALS.STANDARD_USER.PASSWORD)
     }
 
-    async reloadSessionByNavigatingToToday(){
-        await t.navigateTo(URLS.TODAY_URL)
+    //async reloadSessionByNavigatingToToday(){
+    //    await t.navigateTo(URLS.TODAY_URL)
+    //}
+
+    async cleanUp(){
+        await t.click(this.nextTasks)
+        //await t.wait(1500)
+        while(await t.expect(this.item.exists).ok){
+            await this.deleteTaskByRigthClick()
+        }
     }
 
-    async taskCounter(){
-        await t.console.log(taskCount = this.taskItem.count)
-        return taskCount
-    }
+    //async taskCounter(){
+    //    await t.console.log(taskCount = this.taskItem.count)
+    //    return taskCount
+    //}
 
-    async assertTaskCount(expectedCount){
-        await expect(expectedCount = taskCounter()).ok()
-    }
+    //async assertTaskCount(expectedCount){
+    //    await expect(expectedCount = taskCounter()).ok()
+    //}
 }
 
 export default new TodayPage
