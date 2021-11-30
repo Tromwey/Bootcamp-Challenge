@@ -2,8 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const URLS = {
-    BASE_URL: 'https://todoist.com/Users/showLogin',
-    TODAY_URL: 'https://todoist.com/app/today'
+    BASE_URL: process.env.BASE_URL
 }
 
 export const CREDENTIALS = {
@@ -18,7 +17,7 @@ export const CREDENTIALS = {
     }
 }
 
-export const TASK= {
+export const TASK= { 
     RESPONSE_TIME: 900,
     DEFAULT_NAME: 'defaultName',
     DEFAULT_DESCRIPTION: 'defaultDescription',
