@@ -6,31 +6,31 @@ class InboxPage {
     constructor(){
         this.item = Selector('.task_list_item__content')
 
-        this.itemDueDateToday = Selector(this.item.child('div').nth(1).child('button').child('span').withAttribute('class','date date_today'))
-        this.itemDueDateTomorrow = Selector(this.item.child('div').nth(1).child('button').child('span').withAttribute('class','date date_tom'))
-
-
         this.moreOptionsButton = Selector('.more_actions_button')
         this.deleteTaskButton = Selector('.popper>ul>li').nth(13)
         this.confirmDeleteButton = Selector('button[type="submit"]')
     }
 
-    async assertCreatedTask(name, dueDate){
+    async assertCreatedTasks(name, dueDate, numberOfTasks){
 
         await t.click(basePage.inboxButton)
-        await t.expect(this.item.withText(name).exists).ok()
 
-        switch (dueDate) {
-            case TASK.TODAY:
-                await t.expect(this.itemDueDateToday.exists).ok()
-                break;
+        for (let i = 0; i < numberOfTasks; i++) {
+            await t.expect(this.item.nth(i).withText(name+i).exists).ok()
 
-            case TASK.TOMORROW:
-                await t.expect(this.itemDueDateTomorrow.exists).ok()
-                break;
-
-            default:
-                break;
+            switch (dueDate) {
+                case TASK.TODAY:
+                    await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_today').exists).ok()
+                    break;
+    
+                case TASK.TOMORROW:
+                    await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_tom').exists).ok()
+                    break;
+    
+                default:
+                    break;
+            }
+            
         }
     }
 
