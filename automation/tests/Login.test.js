@@ -1,5 +1,4 @@
 import { URLS } from "../data/constants"
-import todayPage from "../pages/today-page"
 import { STANDARD_USER } from "../data/roles"
 import loginPage from "../pages/login-page"
 import basePage from "../pages/base-page"

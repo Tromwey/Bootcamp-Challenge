@@ -8,7 +8,7 @@ fixture ('Today - Tasks Creation feature test')
     .beforeEach( async t => {
         await t.useRole(STANDARD_USER)
     })
-    .afterEach( async t => {
+    .afterEach( async () => {
         await inboxPage.cleanUp()
     })
 
