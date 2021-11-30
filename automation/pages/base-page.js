@@ -1,7 +1,6 @@
 import { Selector, t } from "testcafe"
 import { TASK } from "../data/constants"
 import { STANDARD_USER } from "../data/roles"
-import loginPage from "../pages/login-page"
 
 class BasePage {
     constructor(){

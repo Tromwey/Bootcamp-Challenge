@@ -12,14 +12,14 @@ fixture ('Today - Tasks Creation feature test')
         await inboxPage.cleanUp()
     })
 
-test.meta({ feature: 'today', type: 'smoke' })('As a user, I should be able to create a task by providig a name', async t => {
+test.meta({ feature: 'today', type: 'smoke' })('As a user, I should be able to create a task by providig a name', async () => {
     await todayPage.createTasks()
 })
 
-test.meta({ feature: 'today' })('As a user, I should be able to create a task selecting tomorow as due date', async t => {
+test.meta({ feature: 'today' })('As a user, I should be able to create a task selecting tomorow as due date', async () => {
     await todayPage.createTasks(TASK.SINGLE_TASK,TASK.TOMORROW)
 })
 
-test.meta({ feature: 'today' })('As a user, I should be able to create multiple tasks', async t => {
+test.meta({ feature: 'today' })('As a user, I should be able to create multiple tasks', async () => {
     await todayPage.createTasks(TASK.MANY_TASKS)
 })
