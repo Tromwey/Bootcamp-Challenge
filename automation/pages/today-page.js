@@ -1,8 +1,5 @@
 import { Selector, t } from "testcafe"
-import { URLS, CREDENTIALS, TASK } from "../data/constants"
-import { STANDARD_USER } from "../data/roles"
-import loginPage from "../pages/login-page"
-import basePage from "./base-page"
+import { TASK } from "../data/constants"
 
 class TodayPage {
     constructor(){
