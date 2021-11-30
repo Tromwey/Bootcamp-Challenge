@@ -7,7 +7,8 @@
     "test": "testcafe chrome ./automation/tests",
     "test-smoke": "testcafe chrome ./automation/tests --test-meta type=smoke",
     "test-login": "testcafe chrome ./automation/tests --test-meta feature=login",
-    "test-today": "testcafe chrome ./automation/tests --test-meta feature=today"
+    "test-today": "testcafe chrome ./automation/tests --test-meta feature=today",
+    "test-login-multi": "testcafe chrome,firefox ./automation/tests -test-meta feature=login"
   },
   "author": "Eric Briseno",
   "license": "ISC",
