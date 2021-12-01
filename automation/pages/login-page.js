@@ -43,7 +43,6 @@ class LoginPage {
             default:
                 break;
         }
-
     }
 }
 

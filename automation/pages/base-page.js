@@ -18,6 +18,10 @@ class BasePage {
         this.confirmProject = Selector('button[type="submit"]')
         this.newestProject = Selector('#projects_list>li').nth(-1)
         this.makeFavoriteButton = Selector('.ist_menu').find('.project_add_favorite_action')
+
+        this.favoriteProject = Selector('.sidebar_expansion_panel ').nth(0).child('div').nth(1)
+        this.editFavoriteProject = Selector('.popper>ul>li').nth(0)
+        this.favoriteProjectName = Selector('.form_field').child('input')
     }
 
     async logOut(){
@@ -46,6 +50,17 @@ class BasePage {
         await t.click(this.makeFavoriteButton)
         await t.wait(TASK.RESPONSE_TIME)
     }
+
+    async assertCreatedProject(name, color){
+        await t.rightClick(this.favoriteProject)
+        await t.click(this.editFavoriteProject)
+        await t.expect(this.favoriteProjectName.withAttribute('value',name).exists).ok()
+        await t.click(this.newProyectColor)
+        await t.expect(color.withAttribute('aria-checked','true').exists).ok()
+        await t.doubleClick(this.confirmProject)
+    }
+
+
 }
 
 export default new BasePage
