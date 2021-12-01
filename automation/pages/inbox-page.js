@@ -37,6 +37,7 @@ class InboxPage {
     async deleteTaskByRigthClick(){
         await t
             .rightClick(this.item)
+            .wait(TASK.MIN_REPONSE_TIME)
             .click(this.deleteTaskButton)
             .click(this.confirmDeleteButton)
     }

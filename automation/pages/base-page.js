@@ -53,6 +53,7 @@ class BasePage {
 
     async assertCreatedProject(name, color){
         await t.rightClick(this.favoriteProject)
+        await t.wait(TASK.MIN_REPONSE_TIME)
         await t.click(this.editFavoriteProject)
         await t.expect(this.favoriteProjectName.withAttribute('value',name).exists).ok()
         await t.click(this.newProyectColor)

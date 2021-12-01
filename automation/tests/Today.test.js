@@ -29,7 +29,7 @@ test.meta({ feature: 'today' })('As a user, I should be able to create multiple 
     await inboxPage.assertCreatedTasks(TASK.DEFAULT_NAME, TASK.TODAY, TASK.MANY_TASKS)
 })
 
-fixture.only('Today - project creation feature test')
+fixture ('Today - project creation feature test')
     .page `${URLS.BASE_URL}`
     .beforeEach( async t => {
         await t.useRole(STANDARD_USER)

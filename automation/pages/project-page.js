@@ -1,5 +1,4 @@
 import { Selector, t } from "testcafe"
-import basePage from "./base-page"
 
 class ProjectPage {
     constructor(){

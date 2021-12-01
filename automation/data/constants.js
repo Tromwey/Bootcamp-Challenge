@@ -20,6 +20,7 @@ export const CREDENTIALS = {
 
 export const TASK= { 
     RESPONSE_TIME: 900,
+    MIN_REPONSE_TIME: 100,
     DEFAULT_NAME: 'defaultName',
     DEFAULT_DESCRIPTION: 'defaultDescription',
     TODAY: 0,

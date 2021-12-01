@@ -10,6 +10,7 @@ The objetive of this proejct is to apply all the techniques and best practices d
 ├─ automation       # Main project folder
 │   ├─ data         # Constants
 │   ├─ pages        # Pages objects, Selectors and methods
+│   ├─ reports      # Results documentation
 │   ├─ tests        # Tests
 │   └─ ...
 ├─ package.json
@@ -33,6 +34,7 @@ BASE_URL=website_url/
 ```
 ## Dependencies
 * testcafe
+* testcafe-reporter-html
 * dotenv
 * eslint
 * eslint-plugin-cafe
@@ -43,3 +45,4 @@ BASE_URL=website_url/
 * `test-login` Runs all the tests for the LoginPage fixture
 * `test-today` Runs all the tests for the TodayPage fixture
 * `test-login-multi` Runs all the tests for the LoginPage fixture in both explorers (Chrome and Firefox)
+* `test-reporter` Runs all the implemented tests generating a report
