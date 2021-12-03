@@ -4,8 +4,13 @@
         "es2021": true,
         "node": true
     },
-    "plugins": ["testcafe"],
-    "extends": ["eslint:recommended","plugin:testcafe/recommended"],
+    "plugins": [
+        "testcafe"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:testcafe/recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module"
@@ -129,7 +134,7 @@
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": "off",
+        "no-magic-numbers": "error",
         "no-mixed-operators": "error",
         "no-multi-assign": "error",
         "no-multi-spaces": "off",
