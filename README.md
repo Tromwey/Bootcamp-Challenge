@@ -1,8 +1,8 @@
-# Bootcamp-FrontEnd
+# Bootcamp-Challenge
 
 ##Introduction 
 
-The objetive of this proejct is to apply all the techniques and best practices during the front-end bootcamp session
+The objetive of this proejct is to apply all the techniques and best practices during the front-end and API testing bootcamp sessions
 
 ## Project Structure
 ```
