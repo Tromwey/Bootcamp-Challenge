@@ -7,7 +7,7 @@ The objetive of this proejct is to apply all the techniques and best practices d
 ## Project Structure
 ```
 ├─ ...
-├─ automation       # Main project folder
+├─ FrontEnd       # Main project folder
 │   ├─ data         # Constants
 │   ├─ pages        # Pages objects, Selectors and methods
 │   ├─ reports      # Results documentation
@@ -38,6 +38,7 @@ BASE_URL=website_url/
 * dotenv
 * eslint
 * eslint-plugin-cafe
+* newman
 
 ## Scripts
 
@@ -46,3 +47,6 @@ BASE_URL=website_url/
 * `test-today` Runs all the tests for the TodayPage fixture
 * `test-login-multi` Runs all the tests for the LoginPage fixture in both explorers (Chrome and Firefox)
 * `test-reporter` Runs all the implemented tests generating a report
+* `eslint` Runs eslint analysis
+* `newman` Runs API tests
+ 

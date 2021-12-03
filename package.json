@@ -4,18 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "testcafe chrome ./automation/tests",
-    "test-smoke": "testcafe chrome ./automation/tests --test-meta type=smoke --reporter html:loginReport.html",
-    "test-login": "testcafe chrome ./automation/tests --test-meta feature=login",
-    "test-today": "testcafe chrome ./automation/tests --test-meta feature=today",
-    "test-login-multi": "testcafe chrome,firefox ./automation/tests --test-meta feature=login",
-    "test-reporter": "testcafe chrome ./automation/tests --reporter html:automation/reports/testsReport.html"
+    "test": "testcafe chrome ./FrontEnd/tests",
+    "test-smoke": "testcafe chrome ./FrontEnd/tests --test-meta type=smoke --reporter html:loginReport.html",
+    "test-login": "testcafe chrome ./FrontEnd/tests --test-meta feature=login",
+    "test-today": "testcafe chrome ./FrontEnd/tests --test-meta feature=today",
+    "test-login-multi": "testcafe chrome,firefox ./FrontEnd/tests --test-meta feature=login",
+    "test-reporter": "testcafe chrome ./FrontEnd/tests --reporter html:FrontEnd/reports/testsReport.html",
+    "eslint": "eslint ./FrontEnd",
+    "newman": "newman run https://www.getpostman.com/collections/0c241cb9431b5aed8352"
   },
   "author": "Eric Briseno",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
     "eslint-plugin-testcafe": "^0.2.1",
+    "newman": "^5.3.0",
     "testcafe-reporter-html": "^1.4.6"
   },
   "devDependencies": {
