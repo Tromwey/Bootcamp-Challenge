@@ -1,0 +1,1335 @@
+{
+	"info": {
+		"_postman_id": "e243ec24-1a1c-41cb-bd4a-e3779270d863",
+		"name": "Todoist API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "List of projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), order(int), color(int), name(str), comment_count(int), shared(bool), favorite(bool), sync_id(int) and  url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"color\": {\"type\": \"integer\"},\r",
+									"            \"name\": {\"type\": \"string\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"shared\": {\"type\": \"boolean\"},\r",
+									"            \"favorite\": {\"type\": \"boolean\"},\r",
+									"            \"sync_id\": {\"type\": \"integer\"},\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Project name is \" + pm.environment.get(\"projectName\"), () => {\r",
+									"    pm.expect(pm.response.json().name).to.be.eq(pm.environment.get(\"projectName\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), order(int), color(int), name(str), comment_count(int), shared(bool), favorite(bool), sync_id(int) and  url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"color\": {\"type\": \"integer\"},\r",
+									"            \"name\": {\"type\": \"string\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"shared\": {\"type\": \"boolean\"},\r",
+									"            \"favorite\": {\"type\": \"boolean\"},\r",
+									"            \"sync_id\": {\"type\": \"integer\"},\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})\r",
+									"\r",
+									"pm.environment.set(\"projectId\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"projectName\",\"projectTestName\")\r",
+									"pm.environment.set(\"projectColor\",38)\r",
+									"pm.environment.set(\"projectFavorite\",true)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{projectName}}\",\r\n    \"color\": {{projectColor}},\r\n    \"favorite\": {{projectFavorite}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Project id is \" + pm.environment.get(\"projectId\"), () => {\r",
+									"    pm.expect(pm.response.json().id).to.be.eq(pm.environment.get(\"projectId\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Project name is \" + pm.environment.get(\"projectName\"), () => {\r",
+									"    pm.expect(pm.response.json().name).to.be.eq(pm.environment.get(\"projectName\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Project color is \" + pm.environment.get(\"projectColor\"), () => {\r",
+									"    pm.expect(pm.response.json().color).to.be.eq(pm.environment.get(\"projectColor\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Project favorite is \" + pm.environment.get(\"projectFavorite\"), () => {\r",
+									"    pm.expect(pm.response.json().favorite).to.be.eq(pm.environment.get(\"projectFavorite\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), order(int), color(int), name(str), comment_count(int), shared(bool), favorite(bool), sync_id(int) and  url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"color\": {\"type\": \"integer\"},\r",
+									"            \"name\": {\"type\": \"string\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"shared\": {\"type\": \"boolean\"},\r",
+									"            \"favorite\": {\"type\": \"boolean\"},\r",
+									"            \"sync_id\": {\"type\": \"integer\"},\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})\r",
+									"\r",
+									"pm.environment.unset(\"projectName\")\r",
+									"pm.environment.unset(\"projectColor\")\r",
+									"pm.environment.unset(\"projectFavorite\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"projectNameUpdated\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"projectNameUpdated\",\"projectTestNameUpdated\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}?name={{projectNameUpdated}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{projectNameUpdated}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"projectId\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Projects Negative Scenarios",
+			"item": [
+				{
+					"name": "List of projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects?name={{projectName}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{projectName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}?name={{projectNameUpdated}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{projectNameUpdated}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "List of tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), assigner(int), project_id(int), section_id(int), order(int), content(str), description(str), completed(bool), label_ids(array), priority(int), comment_count(int), creator(int), created(str), due{date(str), string(str), lang(str), recurring(bool)} and url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"assigner\": {\"type\": \"integer\"},\r",
+									"            \"project_id\": {\"type\": \"integer\"},\r",
+									"            \"section_id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"content\": {\"type\": \"string\"},\r",
+									"            \"description\": {\"type\": \"string\"},\r",
+									"            \"completed\": {\"type\": \"boolean\"},\r",
+									"            \"label_ids\": {\"type\": \"array\"},\r",
+									"            \"priority\": {\"type\": \"integer\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"creator\": {\"type\": \"integer\"},\r",
+									"            \"created\": {\"type\": \"string\"},\r",
+									"            \"due\":{\r",
+									"                \"date\": {\"type\": \"string\"},\r",
+									"                \"string\": {\"type\": \"string\"},\r",
+									"                \"lang\": {\"type\": \"string\"},\r",
+									"                \"recurring\": {\"type\": \"boolean\"}\r",
+									"            },\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), assigner(int), project_id(int), section_id(int), order(int), content(str), description(str), completed(bool), label_ids(array), priority(int), comment_count(int), creator(int), created(str), due{date(str), string(str), lang(str), recurring(bool)} and url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"assigner\": {\"type\": \"integer\"},\r",
+									"            \"project_id\": {\"type\": \"integer\"},\r",
+									"            \"section_id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"content\": {\"type\": \"string\"},\r",
+									"            \"description\": {\"type\": \"string\"},\r",
+									"            \"completed\": {\"type\": \"boolean\"},\r",
+									"            \"label_ids\": {\"type\": \"array\"},\r",
+									"            \"priority\": {\"type\": \"integer\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"creator\": {\"type\": \"integer\"},\r",
+									"            \"created\": {\"type\": \"string\"},\r",
+									"            \"due\":{\r",
+									"                \"date\": {\"type\": \"string\"},\r",
+									"                \"string\": {\"type\": \"string\"},\r",
+									"                \"lang\": {\"type\": \"string\"},\r",
+									"                \"recurring\": {\"type\": \"boolean\"}\r",
+									"            },\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})\r",
+									"\r",
+									"pm.environment.set(\"taskId\", response.id);\r",
+									"pm.environment.unset(\"taskName\")\r",
+									"pm.environment.unset(\"taskDue\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"taskName\",\"taskTestName\")\r",
+									"pm.environment.set(\"taskDue\",\"today\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks?content={{taskName}}&due_string={{taskDue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "{{taskName}}"
+								},
+								{
+									"key": "due_string",
+									"value": "{{taskDue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is application/json\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Task Id: \" + pm.environment.get(\"taskId\") + \" should exists\", () => {\r",
+									"    pm.expect(pm.response.json().id).to.be.eq(pm.environment.get(\"taskId\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON schema is id(int), assigner(int), project_id(int), section_id(int), order(int), content(str), description(str), completed(bool), label_ids(array), priority(int), comment_count(int), creator(int), created(str), due{date(str), string(str), lang(str), recurring(bool)} and url(str)\", function () {\r",
+									"    const expectedSchema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\"type\": \"integer\"},\r",
+									"            \"assigner\": {\"type\": \"integer\"},\r",
+									"            \"project_id\": {\"type\": \"integer\"},\r",
+									"            \"section_id\": {\"type\": \"integer\"},\r",
+									"            \"order\": {\"type\": \"integer\"},\r",
+									"            \"content\": {\"type\": \"string\"},\r",
+									"            \"description\": {\"type\": \"string\"},\r",
+									"            \"completed\": {\"type\": \"boolean\"},\r",
+									"            \"label_ids\": {\"type\": \"array\"},\r",
+									"            \"priority\": {\"type\": \"integer\"},\r",
+									"            \"comment_count\": {\"type\": \"integer\"},\r",
+									"            \"creator\": {\"type\": \"integer\"},\r",
+									"            \"created\": {\"type\": \"string\"},\r",
+									"            \"due\":{\r",
+									"                \"date\": {\"type\": \"string\"},\r",
+									"                \"string\": {\"type\": \"string\"},\r",
+									"                \"lang\": {\"type\": \"string\"},\r",
+									"                \"recurring\": {\"type\": \"boolean\"}\r",
+									"            },\r",
+									"            \"url\": {\"type\": \"string\"}\r",
+									"        }\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(expectedSchema);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"taskNameUpdated\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"taskNameUpdated\",\"taskTestNameUpdated\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/?content={{taskNameUpdated}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								""
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "{{taskNameUpdated}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/close",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reopen task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/reopen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/html\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"taskId\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tasks Negative Scenarios",
+			"item": [
+				{
+					"name": "List of tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks?content={{taskName}}&due_string={{taskDue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "{{taskName}}"
+								},
+								{
+									"key": "due_string",
+									"value": "{{taskDue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/?content={{taskNameUpdated}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								""
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "{{taskNameUpdated}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/close",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reopen task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}/reopen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is text/plain\", () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.be.eq(\"text/plain; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is 'Forbidden'\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.eq(\"Forbidden\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks/{{taskId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 900ms\", () => {",
+					"    pm.expect(pm.response.responseTime).to.be.below(900)",
+					"})"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.todoist.com/rest/v1"
+		}
+	]
+}
