@@ -7,7 +7,8 @@ The objetive of this proejct is to apply all the techniques and best practices d
 ## Project Structure
 ```
 ├─ ...
-├─ FrontEnd       # Main project folder
+├─ FrontEnd         # API test automation main folder
+├─ FrontEnd         # FrontEnd test automation main folder
 │   ├─ data         # Constants
 │   ├─ pages        # Pages objects, Selectors and methods
 │   ├─ reports      # Results documentation
