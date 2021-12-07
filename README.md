@@ -35,13 +35,13 @@ BASE_URL=login_url/
 ```
 5. Edit the Todoist API_environment.json file adding your Todoist Token:
 ```
-	"values": [
-		{
-			"key": "token",
-			"value": "tokenValue",
-			"enabled": true
-		}
-	],
+"values": [
+	{
+		"key": "token",
+		"value": "tokenValue",
+		"enabled": true
+	}
+],
 ```
 
 ## Dependencies
