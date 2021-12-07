@@ -3,7 +3,7 @@ import { STANDARD_USER } from "../data/roles"
 import basePage from "../pages/base-page"
 import projectPage from "../pages/project-page"
 
-fixture.skip ('Project - project creation feature test')
+fixture ('Project - project creation feature test')
     .page `${URLS.BASE_URL}`
     .beforeEach( async t => {
         await t.useRole(STANDARD_USER)
@@ -12,7 +12,7 @@ fixture.skip ('Project - project creation feature test')
         await projectPage.cleanUp()
     })
 
-test.meta({ feature: 'project' })('As a user, I should be able to create a new project and add it as favorite', async () => {
+test.meta({ feature: 'project' })('As a user, I should be able to create a new project and add it as favorite', async (t) => {
     await basePage.createProject()
     await basePage.makeProjectFav()
     await basePage.assertCreatedProject(TASK.DEFAULT_NAME, basePage.greenBlueProjectColor)

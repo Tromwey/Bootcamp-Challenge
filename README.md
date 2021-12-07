@@ -55,8 +55,9 @@ BASE_URL=login_url/
 ## Scripts
 
 * `test-smoke` Runs all the highly important tests
-* `test-login` Runs all the tests for the LoginPage fixture
-* `test-today` Runs all the tests for the TodayPage fixture
+* `test-login` Runs all the tests for the Login fixture
+* `test-task` Runs all the tests for the Task fixture
+* `test-project` Runs all the tests for the Project fixture
 * `test-login-multi` Runs all the tests for the LoginPage fixture in both explorers (Chrome and Firefox)
 * `test-reporter` Runs all the implemented tests generating a report
 * `eslint` Runs eslint analysis

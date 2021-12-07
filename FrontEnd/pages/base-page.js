@@ -22,6 +22,10 @@ class BasePage {
         this.favoriteProjectOption = Selector('.sidebar_expansion_panel ').nth(0).child('div').nth(1)
         this.editFavoriteProjectButton = Selector('.popper>ul>li').nth(0)
         this.favoriteProjectNameTextBox = Selector('.form_field').child('input')
+
+
+        this.confirmFavoriteProjectButton = Selector('.reactist_modal_box__actions').find('.ist_button_red')
+
     }
 
     async logOut(){
@@ -58,10 +62,9 @@ class BasePage {
         await t.expect(this.favoriteProjectNameTextBox.withAttribute('value',name).exists).ok()
         await t.click(this.newProjectColorDropdown)
         await t.expect(color.withAttribute('aria-checked','true').exists).ok()
-        await t.doubleClick(this.confirmProjectButton)
+        await t.click(this.newProjectColorDropdown)
+        await t.click(this.confirmFavoriteProjectButton)
     }
-
-
 }
 
 export default new BasePage
