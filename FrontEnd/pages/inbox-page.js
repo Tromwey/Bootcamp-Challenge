@@ -17,20 +17,14 @@ class InboxPage {
 
         for (let i = 0; i < numberOfTasks; i++) {
             await t.expect(this.item.nth(i).withText(name+i).exists).ok()
-
-            switch (dueDate) {
-                case TASK.TODAY:
-                    await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_today').exists).ok()
-                    break;
-    
-                case TASK.TOMORROW:
-                    await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_tom').exists).ok()
-                    break;
-    
-                default:
-                    break;
-            }
             
+            if (dueDate == TASK.TODAY) {
+                await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_today').exists).ok()//find()
+                break;
+            }else if (dueDate == TASK.TOMORROW) {
+                await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_tom').exists).ok()
+                break;
+            }
         }
     }
 

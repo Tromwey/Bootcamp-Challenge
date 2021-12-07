@@ -1,5 +1,5 @@
 import { Role } from 'testcafe'
-import { CREDENTIALS, URLS } from "../data/constants"
+import { CREDENTIALS, URLS } from "./constants"
 import loginPage from '../pages/login-page'
 
 export const STANDARD_USER = Role(URLS.BASE_URL , async() => {

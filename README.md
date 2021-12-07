@@ -26,12 +26,23 @@ The objetive of this proejct is to apply all the techniques and best practices d
 1. Clone this repo
 2. Go to the repo folder
 3. Run the npm install
-4. Create a .env file with the following varaibles:
+4. Create a .env file with the following variables:
 ```
 EMAIL=your@email.com
 PASSWORD=your_password
-BASE_URL=website_url/
+BASE_URL=login_url/
 ```
+5. Edit the Todoist API_environment.json file adding your Todoist Token:
+```
+	"values": [
+		{
+			"key": "token",
+			"value": "tokenValue",
+			"enabled": true
+		}
+	],
+```
+
 ## Dependencies
 * testcafe
 * testcafe-reporter-html

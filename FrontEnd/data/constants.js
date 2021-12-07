@@ -18,7 +18,7 @@ export const CREDENTIALS = {
     }
 }
 
-export const TASK= { 
+export const TASK = { 
     RESPONSE_TIME: 900,
     MIN_REPONSE_TIME: 100,
     DEFAULT_NAME: 'defaultName',
@@ -31,16 +31,21 @@ export const TASK= {
 }
 
 export const MESSAGE_ERRORS = {
-    
-    INVALID_EMAIL: 1,
-    INVALID_EMAIL_EN: 'Invalid email address.',
-    INVALID_EMAIL_ES:  'Dirección de email no válida.',
-    
-    INVALID_PASSWORD: 2,
-    INVALID_PASSWORD_EN: 'Blank password.',
-    INVALID_PASSWORD_ES: 'Contraseña en blanco.',
+    TYPE: {
+        INVALID_EMAIL: 0,
+        INVALID_PASSWORD: 1,
+        INVALID_CREDENTIALS: 2
+    },
 
-    INVALID_CREDENTIALS: 3,
-    INVALID_CREDENTIALS_EN: 'Email or password incorrect',
-    INVALID_CREDENTIALS_ES: 'Email o contraseña incorrectos'
+    EN: {
+        INVALID_EMAIL: 'Invalid email address.',
+        INVALID_PASSWORD: 'Blank password.',
+        INVALID_CREDENTIALS: 'Wrong email or password'
+    },
+
+    ES: {
+        INVALID_EMAIL:  'Dirección de email no válida.',
+        INVALID_PASSWORD: 'Contraseña en blanco.',
+        INVALID_CREDENTIALS: 'Email o contraseña incorrectos'
+    }    
 }
