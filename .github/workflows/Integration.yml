@@ -1,0 +1,22 @@
+name: Eslint test
+
+on: [push, pull_request]
+
+jobs:
+
+  Eslint:
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [17.1]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '17.1'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
