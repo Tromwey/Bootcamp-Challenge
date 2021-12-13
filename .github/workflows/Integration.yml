@@ -19,6 +19,8 @@ jobs:
 
   API:
 
+    needs: Eslint
+
     runs-on: windows-latest
 
     steps:
