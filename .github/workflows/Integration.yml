@@ -31,8 +31,8 @@ jobs:
       - uses: matt-ball/newman-action@master
         with:
           apikey: ${{secrets.API_KEY}}
-          collection: ../API/Todoist_API_collection.json
-          environment: ../API/Todoist_API_environment.json
+          collection: ./API/Todoist_API_collection.json
+          environment: ./API/Todoist_API_environment.json
         
       - run: npm ci
       - run: npm run newman
