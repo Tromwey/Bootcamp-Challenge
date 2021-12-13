@@ -12,7 +12,7 @@ fixture ('Project - project creation feature test')
         await projectPage.cleanUp()
     })
 
-test.meta({ feature: 'project' })('As a user, I should be able to create a new project and add it as favorite', async () => {
+test.meta({ feature: 'project', type: 'smoke' })('As a user, I should be able to create a new project and add it as favorite', async () => {
     await basePage.createProject()
     await basePage.makeProjectFav()
     await basePage.assertCreatedProject(TASK.DEFAULT_NAME, basePage.greenBlueProjectColorOption)
