@@ -1,5 +1,5 @@
 import { Selector, t } from "testcafe"
-import { TASK } from "../data/constants"
+import { TASK, TIME } from "../data/constants"
 
 class TodayPage {
     constructor(){
@@ -25,7 +25,7 @@ class TodayPage {
             }
             await t.click(this.confirmTaskButton)
         }
-        await t.wait(TASK.RESPONSE_TIME)
+        await t.wait(TIME.MAX_RESPONSE_TIME)
     }
 
 

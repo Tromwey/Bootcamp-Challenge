@@ -5,7 +5,7 @@ class LoginPage {
     constructor(){
         this.emailInput = Selector('#email')
         this.passwordInput = Selector('#password')
-        this.loginButton = Selector('.submit_btn').withText('Inicia sesión')//remove inicia sesion
+        this.loginButton = Selector('.submit_btn')
         this.invalidCredentialsMessage = Selector('.error_msg')
     }
 
@@ -21,8 +21,6 @@ class LoginPage {
 
         await t.click(this.loginButton)
     }
-
-    //Assertiones were requested to be done on tests, not on methods calls.
 
     async assertInvalidLogin(messageError){ 
         switch (messageError) {

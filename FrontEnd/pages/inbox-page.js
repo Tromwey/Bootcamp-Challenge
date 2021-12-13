@@ -1,5 +1,5 @@
 import { Selector, t } from "testcafe"
-import { TASK } from "../data/constants"
+import { LIST, TASK, TIME } from "../data/constants"
 import basePage from "./base-page"
 
 class InboxPage {
@@ -7,7 +7,7 @@ class InboxPage {
         this.item = Selector('.task_list_item__content')
 
         this.moreOptionsButton = Selector('.more_actions_button')
-        this.deleteTaskButton = Selector('.popper>ul>li').nth(13)
+        this.deleteTaskButton = Selector('.popper>ul>li').withAttribute('data-action-hint','task-overflow-menu-delete')
         this.confirmDeleteButton = Selector('button[type="submit"]')
     }
 
@@ -19,10 +19,10 @@ class InboxPage {
             await t.expect(this.item.nth(i).withText(name+i).exists).ok()
             
             if (dueDate == TASK.TODAY) {
-                await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_today').exists).ok()//find()
+                await t.expect(this.item.nth(i).child('div').nth(LIST.SECOND_ITEM).child('button').child('span').withAttribute('class','date date_today').exists).ok()
                 break;
             }else if (dueDate == TASK.TOMORROW) {
-                await t.expect(this.item.nth(i).child('div').nth(1).child('button').child('span').withAttribute('class','date date_tom').exists).ok()
+                await t.expect(this.item.nth(i).child('div').nth(LIST.SECOND_ITEM).child('button').child('span').withAttribute('class','date date_tom').exists).ok()
                 break;
             }
         }
@@ -31,7 +31,7 @@ class InboxPage {
     async deleteTaskByRigthClick(){
         await t
             .rightClick(this.item)
-            .wait(TASK.MIN_REPONSE_TIME)
+            .wait(TIME.MIN_RESPONSE_TIME)
             .click(this.deleteTaskButton)
             .click(this.confirmDeleteButton)
     }
@@ -49,7 +49,7 @@ class InboxPage {
         while(await this.item.count){
             await this.deleteTaskByRigthClick()
         }
-        await t.wait(TASK.RESPONSE_TIME)
+        await t.wait(TIME.MAX_RESPONSE_TIME)
     }
 }
 
