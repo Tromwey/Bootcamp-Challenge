@@ -3,7 +3,7 @@ import { STANDARD_USER } from "../data/roles"
 import loginPage from "../pages/login-page"
 import basePage from "../pages/base-page"
 
-fixture.only ('Login feature test')
+fixture ('Login feature test')
     .page `${URLS.BASE_URL}`
 
 test.meta({ feature: 'login', type: 'smoke'})('As a user, I should be able to log in succesfully by providing valid credentials', async t => {
