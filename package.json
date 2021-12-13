@@ -12,7 +12,9 @@
     "test-login-multi": "testcafe chrome,firefox ./FrontEnd/tests --test-meta feature=login",
     "test-reporter": "testcafe chrome ./FrontEnd/tests --reporter html:FrontEnd/reports/testsReport.html",
     "eslint": "eslint ./FrontEnd",
-    "newman": "newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json"
+    "newman": "newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json",
+    "test-headless": "testcafe chrome::headless ./FrontEnd/tests",
+    "test-smoke-headless": "testcafe chrome::headless ./FrontEnd/tests --test-meta type=smoke"
   },
   "author": "Eric Briseno",
   "license": "ISC",
