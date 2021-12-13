@@ -30,7 +30,7 @@ jobs:
 
       - uses: matt-ball/newman-action@master
         with:
-          apykey: ${{secrets.API_KEY}}
+          apikey: ${{secrets.API_KEY}}
           collection: ../API/Todoist_API_collection.json
           environment: ../API/Todoist_API_environment.json
         
