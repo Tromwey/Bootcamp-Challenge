@@ -19,8 +19,6 @@ export const CREDENTIALS = {
 }
 
 export const TASK = { 
-    RESPONSE_TIME: 900,
-    MIN_REPONSE_TIME: 100,
     DEFAULT_NAME: 'defaultName',
     DEFAULT_DESCRIPTION: 'defaultDescription',
     TODAY: 0,
@@ -28,6 +26,21 @@ export const TASK = {
     SINGLE_TASK: 1,
     MANY_TASKS: 10
     
+}
+
+export const TIME ={
+    MAX_RESPONSE_TIME: 900,
+    MIN_RESPONSE_TIME: 100
+}
+
+export const LIST = {
+    SECOND_ITEM: 1,
+    LAST_ITEM: -1
+}
+
+
+export const COLOR = {
+    TEAL: 8
 }
 
 export const MESSAGE_ERRORS = {

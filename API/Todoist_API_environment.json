@@ -3,7 +3,7 @@
 	"name": "Todoist API",
 	"values": [
 		{
-			"key": "token",
+			"key": "API_TOKEN",
 			"value": "",
 			"enabled": true
 		}

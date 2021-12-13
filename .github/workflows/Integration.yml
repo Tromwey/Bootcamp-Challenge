@@ -8,10 +8,6 @@ jobs:
 
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        node-version: [17.1]
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -19,4 +15,24 @@ jobs:
           node-version: '17.1'
           cache: 'npm'
       - run: npm ci
-      - run: npm test
+      - run: npm run eslint
+
+  API:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '17.1'
+          cache: 'npm'
+
+      - uses: matt-ball/newman-action@master
+        with:
+          apiKey: ${{ secrets.API_TOKEN }}
+          collection: ./API/Todoist_API_collection.json
+          environment: ./API/Todoist_API_environment.json
+        
+      - run: npm ci
+      - run: npm run newman

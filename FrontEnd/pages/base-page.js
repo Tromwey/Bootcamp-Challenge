@@ -1,42 +1,24 @@
 import { Selector, t } from "testcafe"
-import { TASK } from "../data/constants"
-import { STANDARD_USER } from "../data/roles"
+import { COLOR, LIST, TASK, TIME } from "../data/constants"
 
 class BasePage {
     constructor(){
         this.barButton = Selector('.top_bar_btn')
         this.userButton = Selector('.user_avatar')
-        this.logOutButton = Selector('.user_menu>button').nth(1)
-
-
-        this.inboxButton = Selector('#list_holder>ul>li').nth(0)
-
-        this.newProjectButton = Selector('.expansion_panel__actions').nth(0)
+        this.inboxButton = Selector('#list_holder>ul>li')
+        this.newProjectButton = Selector('.expansion_panel__actions')
         this.newProjectNameTextBox = Selector('#edit_project_modal_field_name')
         this.newProjectColorDropdown = Selector('.color_dropdown_select__name')
-        this.greenBlueProjectColorOption = Selector('.popper>div>ul>li').nth(8)
+
         this.confirmProjectButton = Selector('button[type="submit"]')
-        this.newestProjectOption = Selector('#projects_list>li').nth(-1)
+        this.newestProjectOption = Selector('#projects_list>li').nth(LIST.LAST_ITEM)
         this.makeFavoriteButton = Selector('.ist_menu').find('.project_add_favorite_action')
-
-        this.favoriteProjectOption = Selector('.sidebar_expansion_panel ').nth(0).child('div').nth(1)
-        this.editFavoriteProjectButton = Selector('.popper>ul>li').nth(0)
+        this.favoriteProjectOption = Selector('.sidebar_expansion_panel ').find('.reactist')
+        this.editFavoriteProjectButton = Selector('.popper>ul>li')
         this.favoriteProjectNameTextBox = Selector('.form_field').child('input')
-
-
-        this.confirmFavoriteProjectButton = Selector('.reactist_modal_box__actions').find('.ist_button_red')
-
-    }
-
-    async logOut(){
-        await t
-            .click(this.userButton)
-            .click(this.logOutButton)
-    }
-
-    async reloadSessionByLoginOut(){
-        await this.logOut()
-        await t.useRole(STANDARD_USER)
+        this.favoriteProjectCheckOption = Selector('.form_field form_field_inline').find('.reactist_switch reactist_switch--checked')
+        
+        this.greenBlueProjectColorOption = Selector('.popper>div>ul>li').nth(COLOR.TEAL)
     }
 
     async createProject(){
@@ -46,24 +28,25 @@ class BasePage {
         await t.click(this.newProjectColorDropdown)
         await t.click(this.greenBlueProjectColorOption)
         await t.click(this.confirmProjectButton)
-        await t.wait(TASK.RESPONSE_TIME)
+        await t.wait(TIME.MAX_RESPONSE_TIME)
     }
 
     async makeProjectFav(){
         await t.rightClick(this.newestProjectOption)
         await t.click(this.makeFavoriteButton)
-        await t.wait(TASK.RESPONSE_TIME)
+        await t.wait(TIME.MAX_RESPONSE_TIME)
     }
 
     async assertCreatedProject(name, color){
         await t.rightClick(this.favoriteProjectOption)
-        await t.wait(TASK.MIN_REPONSE_TIME)
+        await t.wait(TIME.MIN_RESPONSE_TIME)
         await t.click(this.editFavoriteProjectButton)
         await t.expect(this.favoriteProjectNameTextBox.withAttribute('value',name).exists).ok()
         await t.click(this.newProjectColorDropdown)
+        await t.hover(this.greenBlueProjectColorOption)
         await t.expect(color.withAttribute('aria-checked','true').exists).ok()
         await t.click(this.newProjectColorDropdown)
-        await t.click(this.confirmFavoriteProjectButton)
+        await t.pressKey('esc')
     }
 }
 
