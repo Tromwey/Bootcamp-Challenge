@@ -30,9 +30,9 @@ jobs:
 
       - uses: matt-ball/newman-action@master
         with:
-          apikey: ${{secrets.API_KEY}}
           collection: ./API/Todoist_API_collection.json
           environment: ./API/Todoist_API_environment.json
+          envVar: '[{ "key": "API_TOKEN", "value": "${{API_TOKEN}}" }]''
         
       - run: npm ci
       - run: npm run newman
