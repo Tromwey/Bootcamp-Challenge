@@ -5,16 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "testcafe chrome ./FrontEnd/tests",
-    "test-smoke": "testcafe chrome ./FrontEnd/tests --test-meta type=smoke --reporter html:loginReport.html",
+    "test-smoke": "testcafe chrome ./FrontEnd/tests --test-meta type=smoke --reporter allure",
     "test-login": "testcafe chrome ./FrontEnd/tests --test-meta feature=login",
     "test-task": "testcafe chrome ./FrontEnd/tests --test-meta feature=task",
     "test-project": "testcafe chrome ./FrontEnd/tests --test-meta feature=project",
     "test-login-multi": "testcafe chrome,firefox ./FrontEnd/tests --test-meta feature=login",
-    "test-reporter": "testcafe chrome ./FrontEnd/tests --reporter html:FrontEnd/reports/testsReport.html",
+    "test-reporter": "testcafe chrome ./FrontEnd/tests --reporter allure",
     "eslint": "eslint ./FrontEnd",
     "newman": "newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json",
     "test-headless": "testcafe chrome::headless ./FrontEnd/tests",
-    "test-smoke-headless": "testcafe chrome::headless ./FrontEnd/tests --test-meta type=smoke"
+    "test-smoke-headless": "testcafe chrome::headless ./FrontEnd/tests --test-meta type=smoke",
+    "allure-report": "allure generate allure/allure-results --clean -o allure/allure-report && allure open allure/allure-report"
   },
   "author": "Eric Briseno",
   "license": "ISC",
@@ -22,8 +23,9 @@
     "dotenv": "10.0.0",
     "eslint-plugin-testcafe": "0.2.1",
     "newman": "5.3.0",
-    "testcafe-reporter-html": "1.4.6",
-    "testcafe": "1.17.1"
+    "testcafe": "1.17.1",
+    "testcafe-reporter-allure": "^1.0.5",
+    "testcafe-reporter-html": "1.4.6"
   },
   "devDependencies": {
     "eslint": "^8.3.0"
