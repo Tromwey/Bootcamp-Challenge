@@ -7,15 +7,17 @@ The objetive of this proejct is to apply all the techniques and best practices d
 ## Project Structure
 ```
 ├─ ...
-├─ FrontEnd         # API test automation main folder
-├─ FrontEnd         # FrontEnd test automation main folder
-│   ├─ data         # Constants
-│   ├─ pages        # Pages objects, Selectors and methods
-│   ├─ reports      # Results documentation
-│   ├─ tests        # Tests
+├─ .github\workflows	# Github actions
+├─ API         			# API test automation main folder
+├─ FrontEnd         	# FrontEnd test automation main folder
+│   ├─ data         	# Constants
+│   ├─ pages        	# Pages objects, Selectors and methods
+│   ├─ reports      	# Results documentation
+│   ├─ tests        	# Tests
 │   └─ ...
-├─ package.json
 ├─ .env
+├─ package-lock.json
+├─ package.json
 ├─ config files
 └─ ...
 ```
@@ -37,7 +39,7 @@ BASE_URL=login_url/
 ```
 "values": [
 	{
-		"key": "token",
+		"key": "API_TOKEN",
 		"value": "tokenValue",
 		"enabled": true
 	}
@@ -47,6 +49,7 @@ BASE_URL=login_url/
 ## Dependencies
 * testcafe
 * testcafe-reporter-html
+* testcafe-reporter-allure
 * dotenv
 * eslint
 * eslint-plugin-cafe
@@ -62,4 +65,8 @@ BASE_URL=login_url/
 * `test-reporter` Runs all the implemented tests generating a report
 * `eslint` Runs eslint analysis
 * `newman` Runs API tests
+* `test-headless` Runs all the tests in headless mode, used on Jenkins
+* `test-smoke-headless` Runs all the highly importart tests in headless mode, used on Jenkins
+* `allure-report` Generates and open the Allure report
+
  
