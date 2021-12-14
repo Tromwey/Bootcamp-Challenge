@@ -29,4 +29,4 @@ jobs:
           node-version: '17.1'
           cache: 'npm'
       - run: npm ci
-      - run: newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json --env-var API_TOKEN=$API_TOKEN --insecure
+      - run: newman run ./API/Todoist_API_collection.json --env-var API_TOKEN=$API_TOKEN --insecure
