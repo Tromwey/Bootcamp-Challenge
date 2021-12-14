@@ -20,7 +20,8 @@ jobs:
   API:
 
     runs-on: windows-latest
-
+    env:
+      API_TOKEN: ${{ secrets.API_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -28,4 +29,4 @@ jobs:
           node-version: '17.1'
           cache: 'npm'
       - run: npm ci
-      - run: newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json --env-var API_TOKEN=${{ secrets.API_TOKEN }} --insecure
+      - run: newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json --env-var API_TOKEN=$API_TOKEN --insecure
