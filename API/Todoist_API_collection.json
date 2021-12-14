@@ -1299,7 +1299,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{token}}",
+				"value": "{{API_TOKEN}}",
 				"type": "string"
 			}
 		]
