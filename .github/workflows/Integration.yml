@@ -19,8 +19,6 @@ jobs:
 
   API:
 
-    needs: Eslint
-
     runs-on: windows-latest
 
     steps:
@@ -30,4 +28,4 @@ jobs:
           node-version: '17.1'
           cache: 'npm'
       - run: npm ci
-      - run: newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json --env-var API_TOKEN ${{ secrets.API_TOKEN }} --insecure
+      - run: newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json --env-var API_TOKEN=${{ secrets.API_TOKEN }} --insecure
