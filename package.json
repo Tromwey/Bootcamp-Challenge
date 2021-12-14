@@ -13,8 +13,8 @@
     "test-reporter": "testcafe chrome ./FrontEnd/tests --reporter allure",
     "eslint": "eslint ./FrontEnd",
     "newman": "newman run ./API/Todoist_API_collection.json -e ./API/Todoist_API_environment.json",
-    "test-headless": "testcafe chrome::headless ./FrontEnd/tests",
-    "test-smoke-headless": "testcafe chrome::headless ./FrontEnd/tests --test-meta type=smoke",
+    "test-headless": "testcafe chrome::headless ./FrontEnd/tests --reporter allure",
+    "test-smoke-headless": "testcafe chrome::headless ./FrontEnd/tests --test-meta type=smoke --reporter allure",
     "allure-report": "allure generate allure/allure-results --clean -o allure/allure-report && allure open allure/allure-report"
   },
   "author": "Eric Briseno",
